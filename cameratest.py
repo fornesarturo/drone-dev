@@ -7,7 +7,7 @@ wc = VideoStream(src=0).start()
 
 time.sleep(2.0)
 
-while True
+while True:
 	frame = wc.read()
 	timestamp = datetime.datetime.now()
 	ts = timestamp.strftime("%A %d %B %Y %I:%M:%S%p")
