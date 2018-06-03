@@ -13,7 +13,7 @@ mySocket.sendto("Connected from Ardupilot".encode('utf-8'), serverAddr)
 
 while True:
     data = raw_input("Enter message to send or type 'exit': ")
-    mySocket.sendto(myMessage1.encode('utf-8'), serverAddr)
+    mySocket.sendto(data.encode('utf-8'), serverAddr)
     
     if data == "exit":
         break
