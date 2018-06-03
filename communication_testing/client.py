@@ -3,7 +3,7 @@ from socket import *
 
 serverIp = "192.168.1.144" # Server's IP
 port = 13000
-severAddr = (serverIp, port)
+serverAddr = (serverIp, port)
 
 UDPSock = socket(AF_INET, SOCK_DGRAM)
 
