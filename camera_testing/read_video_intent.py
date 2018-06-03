@@ -94,7 +94,7 @@ while(True):
         ar=float(a)
         list1.append(ar)
         sheet1.write(i,0,ar)
-        book.save("/home/pi/git/drone-dev/xls/trials.xls")
+        book.save("/home/apsync/drone-rep/drone-dev/xls/trial.xls")
         if (a>10000):
             print("encontre caja");
             break;
