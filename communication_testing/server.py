@@ -4,15 +4,16 @@ import sys
 portNumber = 5000
 buffer = 1024
 hostName = gethostbyname("0.0.0.0")
+serverAddr = (hostName, portNumber)
 
 mySocket = socket(AF_INET, SOCK_DGRAM)
-mySocket.bind((hostName, portNumber))
+mySocket.bind(serverAddr)
 
-print("Test server listening on port {0}\n".format(portNumber))
+print("Server listening on port {0}\n".format(portNumber))
 
 while True:
     (data, addr) = mySocket.recvfrom(buffer)
-    print("Received message: " + data + "\tFrom: " + addr)
+    print("Received message: " + data)
     if data == "exit":
         break
 
