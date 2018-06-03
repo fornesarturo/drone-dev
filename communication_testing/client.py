@@ -1,7 +1,7 @@
 import sys
 from socket import socket, AF_INET, SOCK_DGRAM
 
-serverIp = '192.168.1.144'
+serverIp = sys.argv[1]
 portNumber = 5000
 serverAddr = (serverIp, portNumber)
 buffer = 1024

@@ -9,6 +9,7 @@ serverAddr = (hostName, portNumber)
 mySocket = socket(AF_INET, SOCK_DGRAM)
 mySocket.bind(serverAddr)
 
+print("Try to disable firewall if no messages are being received")
 print("Server listening on port {0}\n".format(portNumber))
 
 while True:
