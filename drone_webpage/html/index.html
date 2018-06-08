@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Drone Webpage</title>
+
+    <link rel="stylesheet" href="./vendor/jquery-ui/jquery-ui.min.css">
+
+    <script src="./vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="./vendor/jquery-ui/jquery-ui.min.js"></script>
+</head>
+<body>
+    <h2>Drone Testing Interface</h2>
+    <fieldset>
+        <legend>Select flight script: </legend>
+        <label for="radio-1">Simple takeoff</label>
+        <input type="radio" name="script_radioset" id="radio-1" value="simple_takeoff" checked>
+        <label for="radio-2">Paris</label>
+        <input type="radio" name="script_radioset" id="radio-2" value="paris">
+        <label for="radio-3">London</label>
+        <input type="radio" name="script_radioset" id="radio-3" value="london">
+    </fieldset>
+
+    <button type="button" id="fly">Fly!</button>
+    
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/index_requests.js"></script>
+</body>
+</html>
