@@ -7,6 +7,7 @@
     <title>Drone Webpage</title>
 
     <link rel="stylesheet" href="./vendor/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="./css/index.css">
 
     <script src="./vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="./vendor/jquery-ui/jquery-ui.min.js"></script>
@@ -15,16 +16,17 @@
     <h2>Drone Testing Interface</h2>
     <fieldset>
         <legend>Select flight script: </legend>
-        <label for="radio-1">Simple takeoff</label>
-        <input type="radio" name="script_radioset" id="radio-1" value="simple_takeoff" checked>
-        <label for="radio-2">Paris</label>
-        <input type="radio" name="script_radioset" id="radio-2" value="paris">
-        <label for="radio-3">London</label>
-        <input type="radio" name="script_radioset" id="radio-3" value="london">
-    </fieldset>
+        <label for="radio_1">Simple takeoff</label>
+        <input type="radio" name="script_radioset" id="radio_1" value="simple_takeoff" checked>
+        <label for="radio_2">Paris</label>
+        <input type="radio" name="script_radioset" id="radio_2" value="paris">
+        <label for="radio_3">Script test</label>
+        <input type="radio" name="script_radioset" id="radio_3" value="script_test">
+    </fieldset><br>
 
-    <button type="button" id="fly">Fly!</button>
-    
+    <button type="button" id="fly">Fly!</button><br><br>
+
+    <textarea id="script_output" autocomplete="off" readonly></textarea><br>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/index.js"></script>

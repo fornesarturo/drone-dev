@@ -1,0 +1,8 @@
+#script_output {
+    height: 300px;
+    width: 1000px;
+    font-size: 150%;
+    overflow: scroll;
+    border: 1px;
+    border-style: solid;
+}

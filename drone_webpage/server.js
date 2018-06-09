@@ -33,28 +33,45 @@ app.get(("/"), (req, res) => {
     res.status(200).sendFile(__dirname + "/html/index.html");
 });
 
-// Socket configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-io.on("connection", (socket) => {
-
-    // Fly script routes (/scripts) ~~~~~~~~~~~~~~~~~~~~~~~
-    flyScriptsRouter.get("/simple_takeoff", (req, res) => {
-        
-        socket.emit("success", {data: "Successfully connected to script's output"});
-
-        // Python test script
-        let thermostat = spawn("python2", ["./python/test.py"]);
-        thermostat.stdout.on("data", (output) => { 
-            let string = String(output);
-            console.log("SIMPLE_TAKEOFF OUTPUT: ", string);
-            socket.emit("output", {data: string});
-        });
-        
-
-        res.status(200).json({
-            status: "200"
-        });
+// Fly script routes (/scripts) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+flyScriptsRouter.get("/simple_takeoff", (req, res) => {
+    startScript("simple_takeoff");
+    res.status(200).json({
+        status: "200"
     });
 });
+
+flyScriptsRouter.get("/script_test", (req, res) => {
+    startScript("script_test");
+    res.status(200).json({
+        status: "200"
+    });
+});
+
+
+// General function for script start ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function startScript(scriptName) {
+    setTimeout(() => {
+
+        io.emit("output", {data: "Successfully connected to script's output\nRunning '" + scriptName + "'."});
+        
+        // Python test script ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        let script = spawn("python2", ["./python/" + scriptName + ".py"]);
+        script.stdout.on("data", (output) => { 
+            let string = String(output);
+            if(string == "SCRIPT ENDED") {
+                console.log(scriptName.toUpperCase()," OUTPUT: ", string);
+                io.emit("exit", {data: string});
+                script.kill();
+            }
+            else {
+                console.log(scriptName.toUpperCase(), " OUTPUT: ", string);
+                io.emit("output", {data: string});
+            }
+        });
+    }, 500);
+    
+}
 
 // Start server ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 server.listen(PORT, () => {
