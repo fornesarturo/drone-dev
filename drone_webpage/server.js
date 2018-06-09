@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = require("socket.io").listen(server);
 const bodyParser = require("body-parser");
-const cors = require('cors');
+// const cors = require('cors');
 
 // Express Setup ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const PORT = process.env.PORT || 1337;
@@ -24,13 +24,19 @@ function logger(req, res, next) {
     next();
 }
 app.use(logger);
-app.use(cors({
-    credentials: true,
-    origin: (origin, callback) => {
-        // check if origin is valid here. If valid, return null.
-        callback(null, true);
-    }
-}));
+// app.use(cors({
+//     credentials: true,
+//     origin: (origin, callback) => {
+//         // check if origin is valid here. If valid, return null.
+//         callback(null, true);
+//     }
+// }));
+app.options("/*", function(req, res, next){
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    res.send(200);
+});
 
 // Router Setup ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let flyScriptsRouter = express.Router();
