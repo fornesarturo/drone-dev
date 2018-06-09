@@ -1,8 +1,13 @@
 # Command to connect to MAVPROXY
 # mavproxy.py --master=/dev/ttyS0 --baudrate 57600 --aircraft MyCopter
 
+import sys
+# Import DroneKit-Python
+from dronekit import connect, VehicleMode
+import time
+
 def writeFlush(text):
-    import sys
+    
     sys.stdout.write(text)
     sys.stdout.flush()
 
@@ -39,9 +44,8 @@ def arm_and_takeoff(aTargetAltitude):
     vehicle.mode = VehicleMode("LAND")
 
 def main():
-    # Import DroneKit-Python
-    from dronekit import connect, VehicleMode
-    import time
+    targetAltitude = sys.argv[1]
+    writeFlush("Target altitude: " + targetAltitude)
 
     # Connect to the Vehicle.
     vehicle = connect('/dev/ttyS0', wait_ready=True, baud=57600)
@@ -55,7 +59,7 @@ def main():
     writeFlush("Mode: %s" % vehicle.mode.name)
     writeFlush("DRONE ARM: " + str(vehicle.armed))
 
-    # arm_and_takeoff(2)
+    # arm_and_takeoff(targetAltitude)
     vehicle.close()
 
     writeFlush("SCRIPT ENDED")

@@ -1,5 +1,22 @@
 $('input[type="radio"]').checkboxradio();
 
+$("#target_altitude").spinner({
+    step: 0.10,
+    numberFormat: "n"
+});
+
+$(".script_option").click(() => {
+    let radio = $(".script_option:checked");
+    console.log(radio);
+    if(radio[0].value == "simple_takeoff") {
+        $("#ta_container").show();
+    }
+    else {
+        $("#ta_container").hide();
+    }
+})
+
+
 //Append text to textarea
 function appendText(text) {
     let textarea = $("#script_output");
@@ -13,15 +30,31 @@ $("#fly").click(() => {
     let scriptName = $("[name='script_radioset']:checked")[0].value;
     console.log("Selected: ", scriptName);
 
-    startScript(scriptName)
-    .then((success) => {
-        var socket = io.connect("http://localhost:1337");
-        socket.on("output", (data) => {
-            appendText(data.data);
+    if(scriptName == "simple_takeoff") {
+        let targetAltitude = $("#target_altitude").val();
+        startScript(scriptName, targetAltitude)
+        .then((success) => {
+            var socket = io.connect("http://localhost:1337");
+            socket.on("output", (data) => {
+                appendText(data.data);
+            });
+            socket.on("exit", (data) => {
+                appendText(data.data);
+                socket.disconnect();
+            });
         });
-        socket.on("exit", (data) => {
-            appendText(data.data);
-            socket.disconnect();
+    }
+    else {
+        startScript(scriptName)
+        .then((success) => {
+            var socket = io.connect("http://localhost:1337");
+            socket.on("output", (data) => {
+                appendText(data.data);
+            });
+            socket.on("exit", (data) => {
+                appendText(data.data);
+                socket.disconnect();
+            });
         });
-    });
+    }
 });

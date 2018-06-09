@@ -16,13 +16,18 @@
     <h2>Drone Testing Interface</h2>
     <fieldset>
         <legend>Select flight script: </legend>
-        <label for="radio_1">Simple takeoff</label>
-        <input type="radio" name="script_radioset" id="radio_1" value="simple_takeoff" checked>
-        <label for="radio_2">Paris</label>
-        <input type="radio" name="script_radioset" id="radio_2" value="paris">
-        <label for="radio_3">Script test</label>
-        <input type="radio" name="script_radioset" id="radio_3" value="script_test">
+        <label for="radio_1">Script test</label>
+        <input type="radio" name="script_radioset" id="radio_1" class="script_option" value="script_test" checked>
+        <label for="radio_2">Params check</label>
+        <input type="radio" name="script_radioset" id="radio_2" class="script_option" value="params_check">
+        <label for="radio_3">Simple takeoff</label>
+        <input type="radio" name="script_radioset" id="radio_3" class="script_option" value="simple_takeoff">
     </fieldset><br>
+
+    <p id="ta_container" hidden>
+        <label for="target_altitude">Taget altitude (If script needs it):</label>
+        <input id="target_altitude" name="target_altitude" value="2.00">
+    </p>
 
     <button type="button" id="fly">Fly!</button><br><br>
 

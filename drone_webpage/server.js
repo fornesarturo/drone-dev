@@ -35,10 +35,17 @@ app.get(("/"), (req, res) => {
 
 // Fly script routes (/scripts) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 flyScriptsRouter.get("/simple_takeoff", (req, res) => {
-    startScript("simple_takeoff");
-    res.status(200).json({
-        status: "200"
-    });
+    if(req.query["targetAltitude"]) {
+        startScript("simple_takeoff", req.query["targetAltitude"]);
+        res.status(200).json({
+            status: "200"
+        });
+    }
+    else {
+        res.status(400).json({
+            status: "400"
+        });
+    }
 });
 
 flyScriptsRouter.get("/script_test", (req, res) => {
@@ -48,15 +55,28 @@ flyScriptsRouter.get("/script_test", (req, res) => {
     });
 });
 
+flyScriptsRouter.get("/params_check", (req, res) => {
+    startScript("params_check");
+    res.status(200).json({
+        status: "200"
+    });
+});
+
 
 // General function for script start ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function startScript(scriptName) {
+function startScript(scriptName, targetAltitude) {
     setTimeout(() => {
 
         io.emit("output", {data: "Successfully connected to script's output\nRunning '" + scriptName + "'."});
         
+        if(targetAltitude && targetAltitude >= 0) {
+            var script = spawn("python2", ["./python/" + scriptName + ".py", targetAltitude]);
+        }
+        else {
+            var script = spawn("python2", ["./python/" + scriptName + ".py"]);
+        }
+
         // Python test script ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        let script = spawn("python2", ["./python/" + scriptName + ".py"]);
         script.stdout.on("data", (output) => { 
             let string = String(output);
             if(string == "SCRIPT ENDED") {

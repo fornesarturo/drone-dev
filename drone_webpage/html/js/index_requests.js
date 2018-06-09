@@ -1,5 +1,11 @@
-async function startScript(scriptName) {
-    let response = await fetch("http://localhost:1337/scripts/" + scriptName, {
+async function startScript(scriptName, targetAltitude) {
+    if(targetAltitude) {
+        var url = "http://localhost:1337/scripts/" + scriptName + "?targetAltitude=" + targetAltitude;
+    }
+    else {
+        var url = "http://localhost:1337/scripts/" + scriptName;
+    }
+    let response = await fetch(url, {
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
