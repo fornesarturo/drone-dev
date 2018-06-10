@@ -11,13 +11,13 @@ def main():
     vehicle = connect('/dev/ttyS0', wait_ready=True, baud=57600)
 
     # Get some vehicle attributes (state)
-    writeFlush("Get some vehicle attribute values:")
-    writeFlush("GPS: %s" % vehicle.gps_0)
-    writeFlush("Battery: %s" % vehicle.battery)
-    writeFlush("Is Armable?: %s" % vehicle.is_armable)
-    writeFlush("System status: %s" % vehicle.system_status.state)
-    writeFlush("Mode: %s" % vehicle.mode.name)
-    writeFlush("DRONE ARM: " + str(vehicle.armed))
+    writeFlush("Get some vehicle attribute values:\n")
+    writeFlush("GPS: %s\n" % vehicle.gps_0)
+    writeFlush("Battery: %s\n" % vehicle.battery)
+    writeFlush("Is Armable?: %s\n" % vehicle.is_armable)
+    writeFlush("System status: %s\n" % vehicle.system_status.state)
+    writeFlush("Mode: %s\n" % vehicle.mode.name)
+    writeFlush("DRONE ARM: " + str(vehicle.armed) + "\n")
 
     vehicle.close()
 
