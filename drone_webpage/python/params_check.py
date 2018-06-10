@@ -2,12 +2,10 @@ def writeFlush(text):
     import sys
     sys.stdout.write(text)
     sys.stdout.flush()
-    time.sleep(0.1)
 
 def main():
     # Import DroneKit-Python
     from dronekit import connect, VehicleMode
-    import time
 
     # Connect to the Vehicle.
     vehicle = connect('/dev/ttyS0', wait_ready=True, baud=57600)
