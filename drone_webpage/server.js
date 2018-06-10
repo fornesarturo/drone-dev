@@ -84,10 +84,10 @@ function startScript(scriptName, targetAltitude) {
         io.emit("output", {data: "Successfully connected to script's output\nRunning '" + scriptName + "'."});
         
         if(targetAltitude && targetAltitude >= 0) {
-            var script = spawn("python2", ["./python/" + scriptName + ".py", targetAltitude]);
+            var script = spawn("python2", ["./python/" + scriptName + ".py", targetAltitude], {gid: 20});
         }
         else {
-            var script = spawn("python2", ["./python/" + scriptName + ".py"]);
+            var script = spawn("python2", ["./python/" + scriptName + ".py"], {gid: 20});
         }
 
         // Python test script ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
