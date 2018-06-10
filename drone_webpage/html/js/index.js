@@ -7,7 +7,6 @@ $("#target_altitude").spinner({
 
 $(".script_option").click(() => {
     let radio = $(".script_option:checked");
-    console.log(radio);
     if(radio[0].value == "simple_takeoff") {
         $("#ta_container").show();
     }

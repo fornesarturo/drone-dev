@@ -103,6 +103,11 @@ function startScript(scriptName, targetAltitude) {
                 io.emit("output", {data: string});
             }
         });
+        script.stderr.on("data", (output) => { 
+            let string = String(output);
+            console.log(scriptName.toUpperCase(), " OUTPUT: ", string);
+            io.emit("output", {data: string});
+        });
     }, 500);
     
 }
