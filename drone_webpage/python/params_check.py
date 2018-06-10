@@ -1,7 +1,9 @@
 def writeFlush(text):
     import sys
-    sys.stdout.write(text)
+    # sys.stdout.write(text)
+    print text
     sys.stdout.flush()
+    time.sleep(0.1)
 
 def main():
     # Import DroneKit-Python
@@ -13,7 +15,7 @@ def main():
 
     # Get some vehicle attributes (state)
     writeFlush("Get some vehicle attribute values:")
-    writeFlush(" GPS: %s" % vehicle.gps_0)
+    writeFlush("GPS: %s" % vehicle.gps_0)
     writeFlush("Battery: %s" % vehicle.battery)
     writeFlush("Is Armable?: %s" % vehicle.is_armable)
     writeFlush("System status: %s" % vehicle.system_status.state)
