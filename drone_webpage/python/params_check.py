@@ -1,7 +1,6 @@
 def writeFlush(text):
     import sys
-    # sys.stdout.write(text)
-    print text
+    sys.stdout.write(text)
     sys.stdout.flush()
     time.sleep(0.1)
 
