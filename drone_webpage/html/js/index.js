@@ -34,7 +34,7 @@ $("#fly").click(() => {
         let targetAltitude = $("#target_altitude").val();
         startScript(scriptName, targetAltitude)
         .then((success) => {
-            var socket = io.connect("http://localhost:1337");
+            var socket = io.connect("http://10.0.1.128:1337");
             socket.on("output", (data) => {
                 appendText(data.data);
             });
