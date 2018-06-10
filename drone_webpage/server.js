@@ -79,38 +79,31 @@ flyScriptsRouter.get("/params_check", (req, res) => {
 
 // General function for script start ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function startScript(scriptName, targetAltitude) {
-    var script1 = spawn(["groups", "${USER}"]);
-    script1.stdout.on("data", (output) => {
-        let string = String(output);
-        console.log(string);
-    });
+    setTimeout(() => {
 
-    // setTimeout(() => {
-
-    //     io.emit("output", {data: "Successfully connected to script's output\nRunning '" + scriptName + "'."});
-
+        io.emit("output", {data: "Successfully connected to script's output\nRunning '" + scriptName + "'."});
         
-    //     if(targetAltitude && targetAltitude >= 0) {
-    //         var script = spawn("python2", ["./python/" + scriptName + ".py", targetAltitude], {gid: 20});
-    //     }
-    //     else {
-    //         var script = spawn("python2", ["./python/" + scriptName + ".py"], {gid: 20});
-    //     }
+        if(targetAltitude && targetAltitude >= 0) {
+            var script = spawn("python2", ["./python/" + scriptName + ".py", targetAltitude]);
+        }
+        else {
+            var script = spawn("python2", ["./python/" + scriptName + ".py"]);
+        }
 
-    //     // Python test script ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //     script.stdout.on("data", (output) => { 
-    //         let string = String(output);
-    //         if(string == "SCRIPT ENDED") {
-    //             console.log(scriptName.toUpperCase()," OUTPUT: ", string);
-    //             io.emit("exit", {data: string});
-    //             script.kill();
-    //         }
-    //         else {
-    //             console.log(scriptName.toUpperCase(), " OUTPUT: ", string);
-    //             io.emit("output", {data: string});
-    //         }
-    //     });
-    // }, 500);
+        // Python test script ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        script.stdout.on("data", (output) => { 
+            let string = String(output);
+            if(string == "SCRIPT ENDED") {
+                console.log(scriptName.toUpperCase()," OUTPUT: ", string);
+                io.emit("exit", {data: string});
+                script.kill();
+            }
+            else {
+                console.log(scriptName.toUpperCase(), " OUTPUT: ", string);
+                io.emit("output", {data: string});
+            }
+        });
+    }, 500);
     
 }
 
