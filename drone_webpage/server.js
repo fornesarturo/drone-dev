@@ -79,9 +79,16 @@ flyScriptsRouter.get("/params_check", (req, res) => {
 
 // General function for script start ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function startScript(scriptName, targetAltitude) {
+    var script1 = spawn(["groups", "${USER}"]);
+    script1.stdout.on("data", (output) => {
+        let string = String(output);
+        console.log(string);
+    });
+
     setTimeout(() => {
 
         io.emit("output", {data: "Successfully connected to script's output\nRunning '" + scriptName + "'."});
+
         
         if(targetAltitude && targetAltitude >= 0) {
             var script = spawn("python2", ["./python/" + scriptName + ".py", targetAltitude], {gid: 20});
