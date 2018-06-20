@@ -1,3 +1,4 @@
+var remoteHost = location.host;
 $('input[type="radio"]').checkboxradio();
 
 $("#target_altitude").spinner({
@@ -33,7 +34,7 @@ $("#fly").click(() => {
         let targetAltitude = $("#target_altitude").val();
         startScript(scriptName, targetAltitude)
         .then((success) => {
-            var socket = io.connect("http://10.0.1.128:1337");
+            var socket = io.connect(remoteHost);
             socket.on("output", (data) => {
                 appendText(data.data);
             });
@@ -46,7 +47,7 @@ $("#fly").click(() => {
     else {
         startScript(scriptName)
         .then((success) => {
-            var socket = io.connect("http://10.0.1.128:1337");
+            var socket = io.connect(remoteHost);
             socket.on("output", (data) => {
                 appendText(data.data);
             });

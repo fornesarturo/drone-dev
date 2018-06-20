@@ -12,12 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "cors": "^2.8.4",
     "express": "^4.16.3",
     "nodemon": "^1.17.5",
-    "socket.io": "^2.1.1",
-    "socket.io-client": "^2.1.1",
-    "sudo": "^1.0.3"
+    "socket.io": "^2.1.1"
   },
   "repository": {
     "url": "https://github.com/fornesarturo/drone-dev"

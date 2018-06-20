@@ -1,9 +1,11 @@
+var remoteHost = location.host;
+
 async function startScript(scriptName, targetAltitude) {
     if(targetAltitude) {
-        var url = "http://10.0.1.128:1337/scripts/" + scriptName + "?targetAltitude=" + targetAltitude;
+        var url = "http://" + remoteHost + "/scripts/" + scriptName + "?targetAltitude=" + targetAltitude;
     }
     else {
-        var url = "http://10.0.1.128:1337/scripts/" + scriptName;
+        var url = "http://" + remoteHost + "/scripts/" + scriptName;
     }
     let response = await fetch(url, {
         cache: 'no-cache',
